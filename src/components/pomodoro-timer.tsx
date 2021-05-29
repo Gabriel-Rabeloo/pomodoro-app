@@ -1,7 +1,16 @@
 import React, { useEffect } from 'react';
+
 import useInterval from '../hooks/use-interval';
 import { Button } from './button';
 import { Timer } from './timer';
+
+/*  // eslint-disable-next-line @typescript-eslint/no-var-requires
+const bellStart = require('../sounds/bell-start.mp3');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bellFinish = require('../sounds/bell-finish.mp3');
+
+const audioStartWorking = new Audio(bellStart);
+const audioStopWorking = new Audio(bellFinish); */
 
 interface Props {
   pomodoroTime: number;
@@ -33,6 +42,7 @@ export function PomodoroTimer(props: Props): JSX.Element {
     setWorking(true);
     setResting(false);
     setMainTime(props.pomodoroTime);
+    // audioStartWorking.play();
   };
 
   const configureRest = (long: boolean) => {
@@ -45,6 +55,8 @@ export function PomodoroTimer(props: Props): JSX.Element {
     } else {
       setMainTime(props.shortRestTime);
     }
+
+    // audioStopWorking.play();
   };
 
   return (
@@ -53,13 +65,13 @@ export function PomodoroTimer(props: Props): JSX.Element {
       <Timer mainTime={mainTime} />
 
       <div className="controls">
-        <Button text="Work" onClick={() => configureWork()}></Button>
-        <Button text="Rest" onClick={() => configureRest(false)}></Button>
+        <Button text="Work" onClick={() => configureWork()} />
+        <Button text="Rest" onClick={() => configureRest(false)} />
         <Button
           className={!working && !resting ? 'hidden' : ''}
           text={timeCounting ? 'Pause' : 'Play'}
           onClick={() => setTimeCounting(!timeCounting)}
-        ></Button>
+        />
       </div>
 
       <div className="details">
